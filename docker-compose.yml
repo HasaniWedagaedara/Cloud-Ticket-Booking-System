@@ -43,5 +43,21 @@ services:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
 
+  worker:
+    build: ./worker
+    container_name: ticket_worker
+    restart: always
+    depends_on:
+      - rabbitmq
+      - postgres
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ticketdb
+
+
 volumes:
   postgres_data:
+
